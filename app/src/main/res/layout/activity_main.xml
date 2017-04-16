@@ -9,6 +9,20 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mToolBar"
+        android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/centent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
     <LinearLayout
         android:id="@+id/line_up_button"
         android:layout_width="0dp"
@@ -22,7 +36,6 @@
         android:orientation="horizontal"
         android:weightSum="3"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/centent"
@@ -65,7 +78,9 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/ic_media_play" />
+                app:srcCompat="@android:drawable/ic_media_play"
+                android:contentDescription=""
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -96,13 +111,16 @@
     <LinearLayout
         android:id="@+id/bottom_line"
         android:layout_width="fill_parent"
-        android:layout_height="0.8dp"
+        android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bottom_line"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/line_up_button"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="8dp">
+        app:layout_constraintRight_toLeftOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent">
 
     </LinearLayout>
 
@@ -120,7 +138,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bottom_line"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1">
 
 
         <ImageView
@@ -128,7 +150,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            app:srcCompat="@android:drawable/ic_media_rew" />
+            app:srcCompat="@android:drawable/ic_media_rew"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -172,7 +195,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            app:srcCompat="@android:drawable/ic_media_ff" />
+            app:srcCompat="@android:drawable/ic_media_ff"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <LinearLayout
@@ -184,7 +208,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/content_shape"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -192,10 +216,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.33999997"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1">
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintTop_toBottomOf="@+id/mToolBar">
 
 
         <LinearLayout
@@ -220,7 +244,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:text="[sakldjsa]"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tv_explain"
@@ -229,7 +254,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:text="Mean"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                tools:ignore="RtlHardcoded" />
         </LinearLayout>
     </LinearLayout>
 
@@ -238,6 +264,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05109489" />
+        app:layout_constraintGuide_percent="0.05109489"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="21dp" />
 
 </android.support.constraint.ConstraintLayout>
