@@ -55,7 +55,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hide" />
+                android:text="@string/hide" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -103,7 +103,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Show" />
+                android:text="@string/show" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -171,22 +171,20 @@
                     android:id="@+id/tv_nowNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="5" />
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="/" />
+                    android:text="@string/middle" />
 
                 <TextView
                     android:id="@+id/tv_totalNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="23" />
+                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
 
@@ -234,7 +232,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Word"
                 android:textSize="50sp" />
 
             <TextView
@@ -243,7 +240,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
-                android:text="[sakldjsa]"
                 android:textSize="22sp"
                 tools:ignore="RtlHardcoded" />
 
@@ -253,8 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
-                android:text="Mean"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>
     </LinearLayout>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TestBar</string>
     <string name="set">set</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+    <string name="middle">/</string>
 </resources>
