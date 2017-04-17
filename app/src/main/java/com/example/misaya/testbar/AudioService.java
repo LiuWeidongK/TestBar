@@ -10,6 +10,7 @@ import android.util.Log;
 public class AudioService extends Service {
     private MediaPlayer mp;
     private String query;
+    private Intent rIntent = new Intent("com.example.misaya.RECEIVER");
 
     @Override
     public void onCreate() {
@@ -21,16 +22,19 @@ public class AudioService extends Service {
     public void onStart(Intent intent, int startId) {
         if (query != null && !query.equals(intent.getStringExtra("query")) && mp != null) {
             mp.start();
+//            sendMsg(1);
         } else {
             String query = intent.getStringExtra("query");
             Uri location = Uri.parse("http://dict.youdao.com/dictvoice?audio=" + query);
             mp = MediaPlayer.create(this, location);
             mp.start();
+//            sendMsg(1);
 
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     //向Activity传值 通知播放完毕
+                    sendMsg(0);
                 }
             });
 
@@ -45,6 +49,12 @@ public class AudioService extends Service {
                 }
             });
         }
+    }
+
+    private void sendMsg(int state) {
+        rIntent.putExtra("state", state);
+        Log.e("Send", String.valueOf(state));
+        sendBroadcast(rIntent);
     }
 
     @Override

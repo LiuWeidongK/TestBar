@@ -1,8 +1,10 @@
 package com.example.misaya.testbar;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String initUnit = "unit1";
 
     private Toolbar toolbar;
-    private ImageView imgBefore,imgAfter;
+    private ImageView imgBefore,imgAfter,imgAudio;
     private RelativeLayout layoutHide,layoutAudio,layoutShow;
     private TextView tvNowNum,tvTotalNum,tvWord,tvPhonetic,tvExplain;
 
@@ -45,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private int index = 0;
     Handler handler = null;
-
+    private Intent mIntent;
+    private MsgReceiver msgReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         mContext = getApplication();
         init();
         chooseUnit(initUnit);
+
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.misaya.RECEIVER");
+        registerReceiver(msgReceiver, intentFilter);
 
         imgBefore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         layoutAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imgAudio.setVisibility(View.INVISIBLE);
                 try {
                     audioService(arr.getString(index));
                 } catch (JSONException e) {
@@ -153,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         toolbar = (Toolbar) findViewById(R.id.mToolBar);
         imgBefore = (ImageView) findViewById(R.id.img_before);
+        imgAudio = (ImageView) findViewById(R.id.imgAudio);
         imgAfter = (ImageView) findViewById(R.id.img_after);
         layoutHide = (RelativeLayout) findViewById(R.id.layout_hide);
         layoutAudio = (RelativeLayout) findViewById(R.id.layout_audio);
@@ -162,6 +173,23 @@ public class MainActivity extends AppCompatActivity {
         tvWord = (TextView) findViewById(R.id.tv_word);
         tvPhonetic = (TextView) findViewById(R.id.tv_phonetic);
         tvExplain = (TextView) findViewById(R.id.tv_explain);
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(mIntent);
+        unregisterReceiver(msgReceiver);
+        super.onDestroy();
+    }
+
+    public class MsgReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int state = intent.getIntExtra("state", 1);
+            if(state == 0)
+                imgAudio.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void chooseUnit(final String unit) {
@@ -223,9 +251,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void audioService(String word) {
-        Intent intent = new Intent(MainActivity.this, AudioService.class);
-        intent.putExtra("query", word);
-        startService(intent);
+        mIntent = new Intent(MainActivity.this, AudioService.class);
+        mIntent.putExtra("query", word);
+        startService(mIntent);
     }
 
     private void setTitle(String unit) {
