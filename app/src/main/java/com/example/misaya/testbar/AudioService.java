@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.IOException;
+
 public class AudioService extends Service {
     private MediaPlayer mp;
     private String query;
@@ -22,13 +24,11 @@ public class AudioService extends Service {
     public void onStart(Intent intent, int startId) {
         if (query != null && !query.equals(intent.getStringExtra("query")) && mp != null) {
             mp.start();
-//            sendMsg(1);
         } else {
             String query = intent.getStringExtra("query");
             Uri location = Uri.parse("http://dict.youdao.com/dictvoice?audio=" + query);
             mp = MediaPlayer.create(this, location);
             mp.start();
-//            sendMsg(1);
 
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -61,6 +61,7 @@ public class AudioService extends Service {
     public void onDestroy() {
         mp.stop();
         mp.release();
+        mp = null;
         super.onDestroy();
     }
 
